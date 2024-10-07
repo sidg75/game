@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const result = document.getElementById('result');
     const plantDetails = document.getElementById('plantDetails');
     const similarPlants = document.getElementById('similarPlants');
+    const uploadedImageContainer = document.getElementById('uploadedImageContainer');
+    const uploadedImage = document.getElementById('uploadedImage');
 
     uploadButton.addEventListener('click', async () => {
         const file = fileInput.files[0];
@@ -12,10 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Display the uploaded image
+        const imageUrl = URL.createObjectURL(file);
+        uploadedImage.src = imageUrl;
+        uploadedImageContainer.classList.remove('hidden');
+
         const reader = new FileReader();
         reader.onloadend = async () => {
             const base64Image = reader.result.split(',')[1];
 
+            // API request to plant.id
             const response = await fetch('https://api.plant.id/v2/identify', {
                 method: 'POST',
                 headers: {
@@ -49,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             similarPlants.innerHTML = '';
 
+            // Populate the table with plant details
             data.suggestions.forEach(suggestion => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -58,10 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 plantDetails.appendChild(row);
 
+                // Show similar plant images
                 if (suggestion.similar_images) {
                     suggestion.similar_images.forEach(image => {
                         const imgElement = document.createElement('img');
-                        imgElement.src = image;
+                        imgElement.src = image.url;
                         imgElement.classList.add('similar-image');
                         similarPlants.appendChild(imgElement);
                     });

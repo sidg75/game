@@ -38,6 +38,10 @@ button:hover {
     background-color: #45a049;
 }
 
+.hidden {
+    display: none;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -54,8 +58,11 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-.hidden {
-    display: none;
+#uploadedImage {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
 }
 
 #similarPlants {
@@ -66,4 +73,5 @@ tr:nth-child(even) {
 .similar-image {
     margin: 10px;
     max-width: 100px;
+    height: auto;
 }

@@ -9,8 +9,15 @@
 <body>
     <div class="container">
         <h1>Plant Identifier</h1>
+        <p>Upload an image of a plant to get its details.</p>
         <input type="file" id="fileInput" accept="image/*">
-        <button id="uploadButton">Upload</button>
+        <button id="uploadButton">Upload and Identify</button>
+
+        <div id="uploadedImageContainer" class="hidden">
+            <h3>Uploaded Image:</h3>
+            <img id="uploadedImage" src="" alt="Uploaded Plant Image">
+        </div>
+
         <div id="result" class="hidden">
             <h2>Plant Details</h2>
             <table id="plantDetails">
@@ -20,6 +27,7 @@
                     <th>More Info</th>
                 </tr>
             </table>
+
             <h3>Similar Plants</h3>
             <div id="similarPlants"></div>
         </div>
