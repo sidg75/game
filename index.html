@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Plant Identifier</h1>
+        <h1>Plant Detector</h1>
         <p>Upload an image of a plant to learn more about it.</p>
     </header>
 
@@ -17,10 +17,12 @@
     <section id="upload-section">
     <input type="file" id="plantImage" accept="image/*">
     <button id="uploadButton">Upload and Identify</button>
-    
+    <p/>
+        <p/>
+    </p>
     <!-- This img tag will show the uploaded image -->
     <div id="image-preview">
-        <h3>Uploaded Image:</h3>
+        <h3 align="left">Uploaded Image:</h3>
         <img id="uploadedImage" src="#" alt="Your uploaded plant image will appear here" style="max-width: 300px; max-height: 300px; display: none;">
     </div>
 </section>
@@ -42,6 +44,7 @@
             </tbody>
         </table>
 
+        <p/>
         <h2>Similar Plants</h2>
         <div id="similar-plants">
             <!-- Matching plant images will go here -->
