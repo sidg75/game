@@ -1,6 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const plantImageInput = document.getElementById('plantImage');
+    const uploadedImage = document.getElementById('uploadedImage');
+
+    // Display image preview when an image is selected
+    plantImageInput.addEventListener('change', (event) => {
+        const imageFile = event.target.files[0];
+        if (imageFile) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedImage.src = e.target.result;  // Set the image src to the uploaded image
+                uploadedImage.style.display = 'block'; // Show the image
+            };
+            reader.readAsDataURL(imageFile);
+        }
+    });
+
     document.getElementById('uploadButton').addEventListener('click', () => {
-        const imageFile = document.getElementById('plantImage').files[0];
+        const imageFile = plantImageInput.files[0];
         if (!imageFile) {
             alert('Please select an image file');
             return;
@@ -59,10 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const similarPlantsDiv = document.getElementById('similar-plants');
         similarPlantsDiv.innerHTML = '';
 
-        similarImages.forEach(image => {
-            const imgElement = document.createElement('img');
-            imgElement.src = image.url;
-            similarPlantsDiv.appendChild(imgElement);
-        });
+        if (similarImages && Array.isArray(similarImages) && similarImages.length > 0) {
+            similarImages.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image.url;
+                similarPlantsDiv.appendChild(imgElement);
+            });
+        } else {
+            similarPlantsDiv.innerHTML = '<p>No similar plants found.</p>';
+        }
     }
 });

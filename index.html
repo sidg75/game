@@ -12,10 +12,19 @@
         <p>Upload an image of a plant to learn more about it.</p>
     </header>
 
+
+
     <section id="upload-section">
-        <input type="file" id="plantImage" accept="image/*">
-        <button id="uploadButton">Upload and Identify</button>
-    </section>
+    <input type="file" id="plantImage" accept="image/*">
+    <button id="uploadButton">Upload and Identify</button>
+    
+    <!-- This img tag will show the uploaded image -->
+    <div id="image-preview">
+        <h3>Uploaded Image:</h3>
+        <img id="uploadedImage" src="#" alt="Your uploaded plant image will appear here" style="max-width: 300px; max-height: 300px; display: none;">
+    </div>
+</section>
+
 
     <section id="result-section" class="hidden">
         <h2>Plant Details</h2>
