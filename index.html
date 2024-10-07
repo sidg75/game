@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Plant Detective</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Identifier</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Plant Detective</h1>
-        <p>Upload an image of a plant to learn more!</p>
+        <h1>Plant Identifier</h1>
+        <p>Upload an image of a plant to learn more about it.</p>
     </header>
 
-    <main>
-        <input type="file" id="imageUpload" accept="image/*">
-        <button id="uploadButton">Identify Plant</button>
+    <section id="upload-section">
+        <input type="file" id="plantImage" accept="image/*">
+        <button id="uploadButton">Upload and Identify</button>
+    </section>
 
-        <div id="results">
-            <h2>Plant Details</h2>
-            <table id="plantTable">
-                </table>
+    <section id="result-section" class="hidden">
+        <h2>Plant Details</h2>
+        <table id="plant-details">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Information</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Plant details will go here -->
+            </tbody>
+        </table>
 
-            <div id="imageGallery">
-                </div>
+        <h2>Similar Plants</h2>
+        <div id="similar-plants">
+            <!-- Matching plant images will go here -->
         </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2023 Plant Detective</p>
-    </footer>
+    </section>
 
     <script src="script.js"></script>
 </body>

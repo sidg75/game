@@ -1,25 +1,72 @@
-/* Basic styling for the page elements (header, main, footer, table, etc.) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+
+header {
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#upload-section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result-section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
 }
 
 table {
+    margin: 0 auto;
     border-collapse: collapse;
-    width: 100%;
+    width: 80%;
+    max-width: 800px;
 }
 
 th, td {
-    border: 1px solid black;
+    border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
 }
 
-#imageGallery {
-    display: flex;
-    overflow-x: auto; /* Enable horizontal scrolling if needed */
+th {
+    background-color: #4CAF50;
+    color: white;
 }
 
-#imageGallery img {
-    height: 200px;
-    margin-right: 10px;
+#similar-plants img {
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    object-fit: cover;
 }
