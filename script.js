@@ -1,46 +1,76 @@
-const characters = [
-    { name: "Goku", image: "images/goku.png", sound: "sounds/goku.mp3" },
-    { name: "Luffy", image: "images/luffy.png", sound: "sounds/luffy.mp3" },
-    // ... more characters (24 total)
-];
+const imageUpload = document.getElementById('imageUpload');
+const uploadButton = document.getElementById('uploadButton');
+const resultsDiv = document.getElementById('results');
+const plantTable = document.getElementById('plantTable');
+const imageGallery = document.getElementById('imageGallery');
 
-const wheel = document.getElementById("wheel");
-const tryMyLuckButton = document.getElementById("tryMyLuck");
-const popup = document.getElementById("popup");
-const characterImage = document.getElementById("characterImage");
-const characterSound = document.getElementById("characterSound");
-const closePopup = document.getElementById("closePopup");
+// Replace with your actual Plant.id API key
+const PLANT_ID_API_KEY = 'o6ZRL9rZ5bGW4i79eQsRdLD4vLomDtFMPv9bJEs2gFeD6W33wq'; 
 
-// Create partitions dynamically
-function createPartitions() {
-    for (let i = 0; i < 24; i++) {
-        const partition = document.createElement("div");
-        partition.classList.add("partition");
-        partition.style.transform = `rotate(${i * 15}deg)`; // 360 / 24 = 15
-        wheel.appendChild(partition);
+uploadButton.addEventListener('click', () => {
+    const file = imageUpload.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append('api_key', PLANT_ID_API_KEY);
+        formData.append('images', file);
+
+        // Make the API request to Plant.id
+        fetch('https://api.plant.id/v2/identify', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.suggestions && data.suggestions.length > 0) {
+                const plantData = data.suggestions[0]; // Get the top suggestion
+                displayPlantDetails(plantData);
+                // You can use plantData.plant_details.scientific_name to search for more images
+                // and call displayImages() to show them.
+            } else {
+                alert("Plant not recognized. Please try a different image.");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred. Please try again later.");
+        }); 
+
+    } else {
+        alert("Please select an image to upload.");
     }
+});
+
+function displayPlantDetails(plantData) {
+    // Clear previous results
+    plantTable.innerHTML = ''; 
+
+    // Create table rows dynamically
+    const tableRows = [
+        ['Common Name', plantData.plant_details.common_names ? plantData.plant_details.common_names.join(', ') : 'N/A'],
+        ['Scientific Name', plantData.plant_details.scientific_name],
+        ['Plant Family', plantData.plant_details.family],
+        // Add more rows for other details as needed
+    ];
+
+    tableRows.forEach(row => {
+        const tableRow = plantTable.insertRow();
+        const cell1 = tableRow.insertCell();
+        const cell2 = tableRow.insertCell();
+        cell1.textContent = row[0];
+        cell2.textContent = row[1];
+    });
+
+    resultsDiv.style.display = 'block'; // Show the results div
 }
 
-createPartitions(); // Call the function to create partitions
+function displayImages(imageUrls) {
+    // Clear previous images
+    imageGallery.innerHTML = '';
 
-tryMyLuckButton.addEventListener("click", () => {
-    const randomIndex = Math.floor(Math.random() * 24);
-    const degree = randomIndex * 15 + 3600; // Add 10 full rotations (3600 degrees) for a longer spin
-
-    wheel.style.transition = "transform 3s ease-out";
-    wheel.style.transform = `rotate(${degree}deg)`;
-
-    setTimeout(() => {
-        const character = characters[randomIndex];
-        characterImage.src = character.image;
-        characterSound.src = character.sound;
-        characterSound.play();
-        popup.classList.remove("hidden");
-    }, 3000);
-});
-
-closePopup.addEventListener("click", () => {
-    popup.classList.add("hidden");
-    characterSound.pause();
-    characterSound.currentTime = 0; // Reset audio
-});
+    imageUrls.forEach(imageUrl => {
+        const imgElement = document.createElement('img');
+        imgElement.src = imageUrl;
+        imgElement.alt = 'Plant Image';
+        imageGallery.appendChild(imgElement);
+    });
+}

@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Anime Wheel of Fortune</title>
+    <title>Plant Detective</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div id="wheel">
-            </div>
-        <button id="tryMyLuck">Try my luck</button>
-    </div>
+    <header>
+        <h1>Plant Detective</h1>
+        <p>Upload an image of a plant to learn more!</p>
+    </header>
 
-    <div id="popup" class="hidden">
-        <div class="popup-content">
-            <img id="characterImage" src="" alt="Anime Character">
-            <audio id="characterSound" src="" autoplay></audio>
-            <button id="closePopup">Close</button>
+    <main>
+        <input type="file" id="imageUpload" accept="image/*">
+        <button id="uploadButton">Identify Plant</button>
+
+        <div id="results">
+            <h2>Plant Details</h2>
+            <table id="plantTable">
+                </table>
+
+            <div id="imageGallery">
+                </div>
         </div>
-    </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Plant Detective</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
