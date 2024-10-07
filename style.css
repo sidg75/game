@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#wheel {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 5px solid #000;
+    position: relative;
+    overflow: hidden; /* Hide partitions that extend beyond the circle */
+}
+
+.partition {
+    position: absolute;
+    width: 150px; /* Half the wheel's width */
+    height: 150px; /* Half the wheel's height */
+    left: 50%;
+    top: 0;
+    transform-origin: 0 100%; /* Set rotation origin to bottom left */
+    clip-path: polygon(100% 0, 0 0, 0% 100%); /* Create triangle shape */
+}
+
+/* Add styling for each partition (different colors or background images) */
+.partition:nth-child(1) { background-color: #e6194b; }
+.partition:nth-child(2) { background-color: #3cb44b; }
+/* ... and so on */
+
+#tryMyLuck {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+#popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#closePopup {
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
