@@ -3,61 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant Identifier</title>
     <link rel="stylesheet" href="style.css">
+    <title>Plant Identifier</title>
 </head>
 <body>
-    <header>
-        <h1>Plant Detective</h1>
-        <p>Upload an image of a plant to learn more about it.</p>
-    </header>
-
-
-
-    <section id="upload-section">
-    <input type="file" id="plantImage" accept="image/*">
-    <button id="uploadButton">Upload and Identify</button>
-    <p/>
-        <p/>
-    </p>
-    <!-- This img tag will show the uploaded image -->
-    <div id="image-preview">
-        <h3 align="left">Uploaded Image:</h3>
-        <img id="uploadedImage" src="#" alt="Your uploaded plant image will appear here" style="max-width: 300px; max-height: 300px; display: none;">
-    </div>
-</section>
-
-
-    
-
-    <section id="result-section" class="hidden">
-        <h2>Plant Details</h2>
-        <table id="plant-details">
-            <thead>
+    <div class="container">
+        <h1>Plant Identifier</h1>
+        <input type="file" id="fileInput" accept="image/*">
+        <button id="uploadButton">Upload</button>
+        <div id="result" class="hidden">
+            <h2>Plant Details</h2>
+            <table id="plantDetails">
                 <tr>
-                    <th>Attribute</th>
-                    <th>Information</th>
+                    <th>Common Name</th>
+                    <th>Scientific Name</th>
+                    <th>More Info</th>
                 </tr>
-            </thead>
-            <tbody>
-                <!-- Plant details will go here -->
-            </tbody>
-        </table>
-
-        <p/>
-            <div id="health-assessment-section" class="hidden">
-    <h3>Health Assessment Results:</h3>
-    <ul></ul>
-</div>
-
-        <p/>
-        <h2>Similar Plants</h2>
-        <div id="similar-plants">
-            <!-- Matching plant images will go here -->
+            </table>
+            <h3>Similar Plants</h3>
+            <div id="similarPlants"></div>
         </div>
-    </section>
-
-    <!-- Ensure the script is loaded at the end -->
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
