@@ -52,6 +52,7 @@ formData.append('plant_details', JSON.stringify([
                 const plantDetails = data.suggestions[0];
                 displayPlantDetails(plantDetails);
                 displaySimilarPlants(plantDetails.similar_images);
+                performHealthAssessment(imageFile);
             } else {
                 alert('No plant could be identified. Try uploading a different image.');
             }
@@ -66,18 +67,19 @@ function displayPlantDetails(details) {
 
     const tbody = document.querySelector('#plant-details tbody');
     tbody.innerHTML = `
+         <tr>
+            <td>Common Names</td>
+            <td>${details.plant_details.common_names ? details.plant_details.common_names.join(', ') : 'N/A'}</td>
+        </tr>
         <tr>
-            <td>Name</td>
+            <td>General Name</td>
             <td>${details.plant_name}</td>
         </tr>
         <tr>
             <td>Scientific Name</td>
             <td>${details.plant_details.scientific_name}</td>
         </tr>
-        <tr>
-            <td>Common Names</td>
-            <td>${details.plant_details.common_names ? details.plant_details.common_names.join(', ') : 'N/A'}</td>
-        </tr>
+      
         <tr>
             <td>Name Authority</td>
             <td>${details.plant_details.name_authority || 'N/A'}</td>
@@ -112,7 +114,55 @@ function displayPlantDetails(details) {
     `;
 }
 
+     function performHealthAssessment(imageFile) {
+        const healthFormData = new FormData();
+        healthFormData.append('images', imageFile); // Reuse the uploaded image
+        healthFormData.append('plant_language', 'en');
+healthFormData.append('modifiers', JSON.stringify(["crops_fast", "similar_images"]));
+healthFormData.append('plant_language', 'en');
+healthFormData.append('disease_details', JSON.stringify([
+   "cause",
+                        "common_names",
+                        "classification",
+                        "description",
+                        "treatment",
+                        "url"]));
 
+         
+        fetch('https://api.plant.id/v2/health_assessment', {
+            method: 'POST',
+            headers: {
+                'Api-Key': 'o6ZRL9rZ5bGW4i79eQsRdLD4vLomDtFMPv9bJEs2gFeD6W33wq'  // Replace with your actual API key
+            },
+            body: healthFormData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.diseases && data.diseases.length > 0) {
+                displayHealthAssessment(data.diseases);
+            } else {
+                alert('No health issues found for the plant.');
+            }
+        })
+        .catch(error => console.error('Error in health assessment:', error));
+    }
+    
+ function displayHealthAssessment(diseases) {
+        const healthSection = document.getElementById('health-assessment-section');
+        healthSection.classList.remove('hidden');
+
+        const diseaseList = document.querySelector('#health-assessment ul');
+        diseaseList.innerHTML = '';
+
+        diseases.forEach(disease => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <strong>${disease.common_name}</strong>: ${disease.description || 'No description available.'} 
+                <br> <a href="${disease.url}" target="_blank">Learn more</a>
+            `;
+            diseaseList.appendChild(li);
+        });
+    }
 
 
     
