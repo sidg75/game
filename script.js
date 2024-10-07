@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('images', imageFile);
         formData.append('organs', 'leaf');  // you can change to 'flower', 'fruit', etc.
 
-
 formData.append('modifiers', JSON.stringify(["crops_fast", "similar_images"]));
 formData.append('plant_language', 'en');
 formData.append('plant_details', JSON.stringify([
