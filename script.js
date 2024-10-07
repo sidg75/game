@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const reader = new FileReader();
             reader.onload = function(e) {
                 uploadedImage.src = e.target.result;  // Set the image src to the uploaded image
-                uploadedImage.style.display = 'block'; // Show the image
+                uploadedImage.style.display = 'block'; // Make the image visible
             };
             reader.readAsDataURL(imageFile);
         }
@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const similarPlantsDiv = document.getElementById('similar-plants');
         similarPlantsDiv.innerHTML = '';
 
+        // Check if similarImages is defined and is an array
         if (similarImages && Array.isArray(similarImages) && similarImages.length > 0) {
             similarImages.forEach(image => {
                 const imgElement = document.createElement('img');
@@ -82,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 similarPlantsDiv.appendChild(imgElement);
             });
         } else {
+            // Display a message if no similar images are available
             similarPlantsDiv.innerHTML = '<p>No similar plants found.</p>';
         }
     }
